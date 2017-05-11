@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<!--/*@thymesVar id="currentUserConnection" type="me.anenkov.fbpageanalyzer.model.UserConnection"*/-->
+    <body>
+
+        <div th:fragment="userInfo">
+            <!-- Replace navbar-default with navbar-inverse to get a black header -->
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">OAuth social media demo</a>
+                    </div>
+                    <div>
+                        <p th:unless="${currentUserConnection == null}" class="navbar-text navbar-right">
+                            <img th:src="${currentUserConnection.getImageUrl()}" width="32" height="32"  src=""/>
+                            <span th:text="${currentUserConnection.getDisplayName()}"></span>
+                        </p>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+    </body>
+</html>
