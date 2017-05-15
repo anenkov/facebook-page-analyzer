@@ -3,15 +3,16 @@ package me.anenkov.fbpageanalyzer.dao;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
-import org.mockito.Mockito;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.contains;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.eq;
 
 /**
  * me.anenkov.fbpageanalyzer.dao.DataDaoTest
@@ -25,7 +26,7 @@ public class DataDaoTest {
 
     @Before
     public void setUp() {
-        jdbcTemplate = Mockito.mock(JdbcTemplate.class);
+        jdbcTemplate = mock(JdbcTemplate.class);
         dataDao = new DataDao(jdbcTemplate);
     }
 
@@ -62,5 +63,4 @@ public class DataDaoTest {
         verify(jdbcTemplate, times(0)).update("INSERT INTO Data (userId, data) VALUES(?,?)", userId, data);
         verify(jdbcTemplate, times(1)).update("UPDATE Data SET data = ? WHERE userId = ?", data, userId);
     }
-
 }

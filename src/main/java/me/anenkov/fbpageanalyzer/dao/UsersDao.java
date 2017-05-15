@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.util.UUID;
 
 /**
@@ -19,11 +18,11 @@ public class UsersDao {
     private final JdbcTemplate jdbcTemplate;
 
     /**
-     * @param dataSource
+     * @param jdbcTemplate
      */
     @Autowired
-    public UsersDao(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    public UsersDao(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     /**
@@ -31,14 +30,18 @@ public class UsersDao {
      * @return
      */
     public UserProfile getUserProfile(final String userId) {
-        return jdbcTemplate.queryForObject("SELECT * FROM UserProfile WHERE userId = ?",
+        return jdbcTemplate.queryForObject(
+                "SELECT * FROM UserProfile WHERE userId = ?",
                 (rs, rowNum) -> new UserProfile(
                         userId,
                         rs.getString("name"),
                         rs.getString("firstName"),
                         rs.getString("lastName"),
                         rs.getString("email"),
-                        rs.getString("username")), userId);
+                        rs.getString("username")
+                ),
+                userId
+        );
     }
 
     /**
@@ -53,7 +56,9 @@ public class UsersDao {
                         rs.getString("displayName"),
                         rs.getString("imageUrl"),
                         rs.getString("accessToken")
-                ), userId);
+                ),
+                userId
+        );
     }
 
     /**

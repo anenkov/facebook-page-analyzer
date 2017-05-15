@@ -18,7 +18,7 @@ public class DataDao {
      * @param jdbcTemplate
      */
     @Autowired
-    public DataDao(@SuppressWarnings("SpringJavaAutowiringInspection") JdbcTemplate jdbcTemplate) {
+    public DataDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
